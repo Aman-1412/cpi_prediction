@@ -1,0 +1,81 @@
+#####FLASK
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+
+@app.route('/predict', methods = ['POST'])
+def predict():
+	if request.method == 'POST':
+		timestamp = request.
+		
+    return jsonify({"predictions": [2.0,3.0,4.0]})
+	
+if __name__ == '__main__':
+	app.run()
+	
+
+	
+	
+#####AUTO-ARIMA
+stepwise_fit = auto_arima(train_data, start_p = 1, start_q = 1, max_p = 5, max_q = 1, m = 12, start_P=0, seasonal = True, d = 1, D = 1, trace = True, error_action = 'ignore', suppress_warnings = True, stepwise = True)
+stepwise_fit.summary()
+
+
+#####HOLT WINTERS
+from statsmodels.tsa.api import ExponentialSmooting, SimpleExpSmoothing, Holt
+
+smpsm = SimpleExpSmoothing(train_series.values)
+fit_smpsm = smpsm.fit(smoothing_level = 0.8, optimized = True)
+smpsm_forecast = fit_smpsm.forecast(20)
+
+holt = Holt(train_series.values)
+fit_holt = holt.fit(smoothing_level = 0.3, smoothing_slope = 0.1)
+holt_forecast = fit_holt.forecast(20)
+
+
+#####RANDOM FOREST REGRESSION
+from sklearn.ensemble import RandomForestRegressor
+model = RandomForestRegressor(max_depth = 2, random_state=1412, n_estimators=100, max_features=2, criterion = 'mae')
+model.fit(features, labels)
+
+#####TORCH IMPL OF LINEAR REGRESSION
+import torch
+import torch.nn as nn
+
+
+class RegModel(nn.Module):
+    def __init__(self):
+        super(RegModel, self).__init__()
+        self.layer1 = nn.Linear(input_dim, hidden_dim)
+        self.layer2 = nn.Linear(hidden_dim, output_dim)
+
+    def forward(self, x):
+        return self.layer2(nn.ReLU(self.layer1(x)))
+
+# model = nn.Linear(input, output)
+model = RegModel()
+# criterion = torch.nn.SmoothL1Loss()
+criterion = nn.MSELoss()
+optimizer = torch.optim.adam(model.parameters(), lr = 1e-4, weight_decay = 0.3)
+
+for epoch in range(10):
+	inputs = torch.from_numpy(x_train)
+    targets = torch.from_numpy(y_train)
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    
+    if (epoch + 1) % 5 == 0:
+        print(f"Epoch no. {epoch+1} , Loss: {loss.item()}")
+
+torch.save(model.state_dict(), 'model.ckpt')
+# model.load_state_dict(torch.load('model.ckpt'))
+
+
+	
+	
+	
+	
+	
+	
