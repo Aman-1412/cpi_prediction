@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+import requests,os
+import urllib.request
+import time
+from bs4 import BeautifulSoup
+import csv
+#url = 'https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epmr_pte_nus_dpg&f=m'
+#response = requests.get(url)
+from lxml import html
+        
+
+with open("ResponsePetrol.txt","r") as f:
+    #print(response)
+    response= f.read()
+    soup = BeautifulSoup(response, 'html.parser')
+    k=html.fromstring(response)
+    t={}
+    for i  in k.iter():
+    
+        if 'id' in i.attrib :
+            num=i.attrib['id'].split("_")
+            if len(num)!=3:
+                continue
+            try:
+                t[num[2]].append(i.text)
+            except:
+                t[num[2]]=[i.text]
+            
+    
+    print(len(t))
