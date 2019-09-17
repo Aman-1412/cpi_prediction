@@ -39,6 +39,8 @@ def csv_to_json(csv_file = "C:\Python35\projs\ml\cpi_prediction\data\CPIndex_Jan
         out = json.dumps([row for row in reader])
         return out
 
+#def linear_regression():
+
 
 
 @app.route("/time/<time>")
@@ -47,7 +49,7 @@ def current_value(time):
 
 @app.route("/getjson")
 def get_json():
-    return csv_to_json()
+    return jsonify(json.loads(open(r"data/no_rural_urban_cpi.json","r").read()))
 
 
 if __name__ == "__main__":
