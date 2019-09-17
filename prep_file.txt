@@ -4,8 +4,8 @@ app = Flask(__name__)
 
 @app.route('/predict', methods = ['POST'])
 def predict():
-	if request.method == 'POST':
-		timestamp = request.
+	#if request.method == 'POST':
+		# timestamp = request.
 		
     return jsonify({"predictions": [2.0,3.0,4.0]})
 	
